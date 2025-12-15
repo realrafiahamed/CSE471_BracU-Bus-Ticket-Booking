@@ -2,7 +2,13 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\OTPController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,7 +16,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -19,11 +25,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])
+Route::get('/change-password', [ProfileController::class, 'showForm'])
     ->name('password.change');
+Route::post('/change-password', [PasswordController::class, 'update'])->name('password.update');
 
-Route::post('/change-password', [ProfileController::class, 'changePassword'])
-    ->name('password.update');
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+Route::get('/2fa-verify', [OTPController::class, 'showVerifyForm'])->name('2fa.verify.form');
+Route::post('/2fa-verify', [OTPController::class, 'verifyOtp'])->name('2fa.verify');
 
 require __DIR__.'/auth.php';

@@ -257,17 +257,20 @@
             @endif
             <form method="POST" action="{{ url('/login') }}" autocomplete="off">
                 @csrf
-                <input type="text" name="login" placeholder="University Gsuit Email or Phone" required value="{{old('email') }}" />
+                <input type="text" name="login" placeholder="University Gsuit Email or Phone" required value="{{old('login') }}" />
                 <input type="password" name="password" placeholder="Password" required />
                 <button type="submit">Sign In</button>
             </form>
             <div style="margin-bottom: 5px;"></div>
-            <button class="google-btn">Login with Google</button>
+            <button type="button" class="google-btn" onclick="window.location='{{ url('/auth/google') }}'">Login with Google</button>
+
             <div class="login-link">
-                <span class="separator">|</span>
+                
                 Don't have an account? <a href="/register">Register</a>
                 <span class="separator">|</span><br>
                 <a href="/admin/login">Click for Admin Login</a>
+                <span class="separator">|</span>
+                <a href="{{ route('password.request') }}">Forgot Password?</a>
             </div>
         </div>
     </div>
