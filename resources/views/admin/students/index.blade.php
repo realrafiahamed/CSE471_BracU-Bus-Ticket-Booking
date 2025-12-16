@@ -9,9 +9,9 @@
 <body class="bg-gray-200 font-sans">
 
 <div class="min-h-screen flex items-center justify-center p-6">
-    <!-- Dashboard Card -->
+    
     <div class="bg-white shadow-2xl rounded-2xl w-full max-w-7xl p-8">
-        <!-- Header -->
+        
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-4xl font-bold text-blue-700">Admin Dashboard</h1>
             <div class="flex items-center space-x-4">
@@ -22,10 +22,17 @@
                 <div class="bg-blue-100 px-4 py-2 rounded-full shadow font-semibold text-blue-700">
                     Total Students: <span id="totalStudents">0</span>
                 </div>
+                <a href="{{ route('admin.profile') }}" class="bg-green-600 text-white px-4 py-2 rounded-xl shadow hover:bg-green-700 transition-all">
+                    My Profile
+                </a>
+                <a href="{{ route('admin.logout') }}" class="bg-red-600 text-white px-4 py-2 rounded-xl shadow hover:bg-red-700 transition-all">
+                    Logout
+                </a>
+
             </div>
         </div>
 
-        <!-- Search -->
+        
         <div class="relative flex mb-6 items-center space-x-3">
             <input
                 type="text"
@@ -51,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody id="studentsTable">
-                    <!-- JS will populate rows here -->
+                    
                 </tbody>
             </table>
         </div>
@@ -65,7 +72,7 @@
     const searchInput = document.getElementById('searchInput');
     const autocomplete = document.getElementById('autocomplete');
 
-    // Fetch students and populate table
+    
     async function fetchStudents(search = '') {
         const response = await fetch(`/api/students?search=${search}`);
         const data = await response.json();
@@ -100,7 +107,7 @@
         });
     }
 
-    // Autocomplete suggestions
+    
     async function updateAutocomplete() {
         const search = searchInput.value.trim();
         if (!search) {
@@ -124,20 +131,20 @@
             div.addEventListener('click', () => {
                 searchInput.value = student.name;
                 autocomplete.classList.add('hidden');
-                fetchStudents(student.name); // update table with selected student
+                fetchStudents(student.name); 
             });
             autocomplete.appendChild(div);
         });
         autocomplete.classList.remove('hidden');
     }
 
-    // Event listeners
+    
     searchInput.addEventListener('input', () => {
         fetchStudents(searchInput.value);
         updateAutocomplete();
     });
 
-    // Hide autocomplete when clicking outside
+    
     document.addEventListener('click', (e) => {
         if (!autocomplete.contains(e.target) && e.target !== searchInput) {
             autocomplete.classList.add('hidden');
@@ -148,7 +155,7 @@
         alert('Send notification functionality not implemented yet.');
     });
 
-    // Initial fetch
+    
     fetchStudents();
 </script>
 

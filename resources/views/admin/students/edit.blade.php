@@ -9,7 +9,7 @@
 
 <div class="max-w-4xl mx-auto p-6">
 
-    <!-- Back Button -->
+    
     <a href="{{ url('/admin/students') }}"
        class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -23,7 +23,7 @@
     <div class="bg-white shadow rounded-xl p-6 mt-4">
         <h1 class="text-2xl font-bold mb-4 text-blue-700">Edit Student</h1>
 
-        <!-- Form -->
+        
         <form action="{{ route('admin.students.update', $student->id) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')

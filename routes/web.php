@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Student;
 use App\Http\Controllers\Api\StudentController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProfileController;
 
 // Homepage route
 Route::get('/', function () {
@@ -33,16 +35,37 @@ Route::get('/student/dashboard/{student_id}', function ($student_id) {
 
     // Mock recent bookings (replace with DB later if needed)
     $recentBookings = collect([
-        (object) ['from_location'=>'Hostel Gate','to_location'=>'Main Academic Block','journey_date'=>now()->addHours(2),'status'=>'confirmed'],
-        (object) ['from_location'=>'Main Gate','to_location'=>'Library Stop','journey_date'=>now()->subDay(),'status'=>'cancelled'],
-        (object) ['from_location'=>'Sports Complex','to_location'=>'Hostel Gate','journey_date'=>now()->addDay(),'status'=>'confirmed'],
+        (object) ['from_location'=>'Campus','to_location'=>'Mirpur','journey_date'=>now()->addHours(2),'status'=>'confirmed'],
+        (object) ['from_location'=>'Campus','to_location'=>'Uttara','journey_date'=>now()->subDay(),'status'=>'cancelled'],
+        (object) ['from_location'=>'Campus','to_location'=>'Mirpur','journey_date'=>now()->addDay(),'status'=>'confirmed'],
     ]);
+
+    //$recentBookings = collect([
+    //[
+        //'from_location' => 'Hostel Gate',
+        //'to_location' => 'Main Academic Block',
+        //'journey_date' => now()->addHours(2),
+        //'status' => 'confirmed'
+    //],
+    //[
+        //'from_location' => 'Main Gate',
+        //'to_location' => 'Library Stop',
+        //'journey_date' => now()->subDay(),
+        //'status' => 'cancelled'
+    //],
+    //[
+       // 'from_location' => 'Sports Complex',
+       // 'to_location' => 'Hostel Gate',
+       // 'journey_date' => now()->addDay(),
+        //'status' => 'confirmed'
+    //],
+//]);
 
     // Mock notifications (replace with DB later if needed)
     $notifications = collect([
-        (object) ['title'=>'Shuttle Delay','message'=>'Hostel → Main Academic Block shuttle delayed by 10 minutes.','is_read'=>false,'created_at'=>now()->subHours(2)],
-        (object) ['title'=>'Booking Confirmed','message'=>'Your booking Main Gate → Library Stop is confirmed.','is_read'=>true,'created_at'=>now()->subDays(1)],
-        (object) ['title'=>'Route Notice','message'=>'Evening shuttle from Sports Complex will not run this Friday.','is_read'=>false,'created_at'=>now()->subHours(10)],
+        (object) ['title'=>'Bus Delay','message'=>' Bus will arrive late.','is_read'=>false,'created_at'=>now()->subHours(2)],
+        (object) ['title'=>'Booking Confirmed','message'=>'Your booking Campus → Mirpur is confirmed.','is_read'=>true,'created_at'=>now()->subDays(1)],
+        (object) ['title'=>'Route Notice','message'=>'Evening shuttle from Campus to malibag will not run this Friday.','is_read'=>false,'created_at'=>now()->subHours(10)],
     ]);
 
     // Pass data to the view
@@ -89,3 +112,15 @@ Route::put('/admin/students/{id}', function ($id, Request $request) {
     return redirect()->route('admin.students.show', $student->id)
                      ->with('success', 'Student updated successfully!');
 })->name('admin.students.update');
+
+
+Route::get('/admin/login',[LoginController::class,'showLoginForm'])->name('admin.login');
+Route::post('/admin/login',[LoginController::class,'login'])->name('admin.login.submit');
+Route::get('/admin/logout',[LoginController::class,'logout'])->name('admin.logout');
+
+Route::middleware('auth:admin')->group(function(){
+    Route::get('/admin/dashboard',[ProfileController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/profile',[ProfileController::class,'profile'])->name('admin.profile');
+    Route::get('/admin/profile/edit',[ProfileController::class,'edit'])->name('admin.profile.edit');
+    Route::post('/admin/profile',[ProfileController::class,'update'])->name('admin.profile.update');
+});

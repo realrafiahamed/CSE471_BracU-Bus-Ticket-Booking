@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    // Get all students with optional search
+    
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -25,7 +25,7 @@ class StudentController extends Controller
         return response()->json($query->orderBy('name')->paginate(15));
     }
 
-    // Get a single student by ID
+    
     public function show($id)
     {
         $student = Student::findOrFail($id);

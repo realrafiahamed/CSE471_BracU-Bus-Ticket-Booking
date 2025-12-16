@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
 
-    <!-- Tailwind CSS CDN -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
 
-    <!-- Navbar -->
+    
     <nav class="bg-blue-700 text-white p-4 flex justify-between items-center shadow-lg">
         <h1 class="text-2xl font-bold">Student Dashboard</h1>
         <div class="flex items-center space-x-4">
@@ -20,19 +20,19 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
+    
     <div class="max-w-6xl mx-auto p-6">
 
-        <!-- Welcome Box -->
+        
         <div class="bg-white shadow-md rounded-xl p-6 mb-6 border-l-4 border-blue-600">
             <h2 class="text-xl font-bold text-blue-800">Welcome Back, {{ $user->name }}!</h2>
-            <p class="text-gray-600">Here is a quick summary of your account & recent activity.</p>
+            
         </div>
 
-        <!-- GRID: Account Info + Recent Bookings -->
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <!-- Account Info -->
+            <
             <div class="bg-white p-5 shadow-lg rounded-xl">
                 <h3 class="text-lg font-bold mb-4 text-blue-700">Account Information</h3>
 
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <!-- Recent Bookings -->
+            
             <div class="bg-white p-5 shadow-lg rounded-xl md:col-span-2">
                 <h3 class="text-lg font-bold mb-4 text-blue-700">Recent Bookings</h3>
 
@@ -77,7 +77,7 @@
 
         </div>
 
-        <!-- Notifications Section -->
+        
         <div class="bg-white p-5 mt-6 shadow-lg rounded-xl">
             <h3 class="text-lg font-bold mb-4 text-blue-700">Notifications</h3>
 
