@@ -12,6 +12,11 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'user_id';
+    public $incrementing = true; // if user_id auto-increments
+    protected $keyType = 'int'; 
+    protected static function booted(){ static::creating(fn($u)=> $u->admin_id ??= 1); }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,8 +24,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone_no',
+        'default_location',
+        'department',
+        'student_id',
         'password',
+        'is_google_user',
     ];
 
     /**

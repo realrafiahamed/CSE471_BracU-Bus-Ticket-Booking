@@ -1,47 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'BRACU Transport Ticket Booking System')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <a href="{{ route('home') }}" class="flex items-center space-x-3">
-                    <i class="fas fa-bus text-white text-3xl"></i>
-                    <div>
-                        <h1 class="text-white text-2xl font-bold">BRACU Transport</h1>
-                        <p class="text-blue-200 text-sm">Ticket Booking System</p>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        <!-- Vite (THIS is Step 3) -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+            <!-- Page Heading -->
+            @isset($header)
+                <header class="bg-white dark:bg-gray-800 shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
                     </div>
-                </a>
-                <div class="hidden md:flex space-x-6">
-                    <a href="{{ route('home') }}" class="text-white hover:text-blue-200 transition duration-300 font-medium">
-                        <i class="fas fa-home mr-2"></i>Home
-                    </a>
-                    <a href="{{ route('bus-routes.all') }}" class="text-white hover:text-blue-200 transition duration-300 font-medium">
-                        <i class="fas fa-list mr-2"></i>All Routes
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+                </header>
+            @endisset
 
-    <!-- Main Content -->
-    <main>
-        @yield('content')
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-16 py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-400">© 2024 BRACU Transport Ticket Booking System</p>
-            <p class="text-gray-500 text-sm mt-2">BRAC University, Merul Badda, Dhaka</p>
+            <!-- Page Content -->
+            <main>
+                @yield('content')
+            </main>
         </div>
-    </footer>
-</body>
+    </body>
 </html>
