@@ -15,6 +15,8 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
     public $incrementing = true; // if user_id auto-increments
     protected $keyType = 'int'; 
+    protected static function booted(){ static::creating(fn($u)=> $u->admin_id ??= 1); }
+
     /**
      * The attributes that are mass assignable.
      *
